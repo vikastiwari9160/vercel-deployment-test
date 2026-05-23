@@ -1,0 +1,271 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .page { max-width: 600px; margin: 0 auto; padding: 2rem 1.5rem; font-family: var(--font-sans, sans-serif); }
+  .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 2rem; }
+  .logo-dot { width: 32px; height: 32px; border-radius: 50%; background: #D85A30; display: flex; align-items: center; justify-content: center; }
+  .logo-dot i { color: #fff; font-size: 16px; }
+  .logo-name { font-size: 18px; font-weight: 500; color: var(--color-text-primary); }
+  .hero { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 2rem; margin-bottom: 1.5rem; border: 0.5px solid var(--color-border-tertiary); text-align: center; }
+  .hero-icon { font-size: 48px; color: #D85A30; margin-bottom: 1rem; }
+  .hero h1 { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 0.75rem; }
+  .hero p { font-size: 15px; color: var(--color-text-secondary); line-height: 1.7; }
+  .hero .warning { margin-top: 1rem; background: var(--color-background-danger); border: 0.5px solid var(--color-border-danger); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; font-size: 13px; color: var(--color-text-danger); }
+  .email-badge { display: inline-block; background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: 999px; padding: 4px 14px; font-size: 13px; color: var(--color-text-secondary); margin: 0.75rem 0 0; }
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+  .stat { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.9rem 1rem; text-align: center; }
+  .stat-num { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+  .stat-label { font-size: 12px; color: var(--color-text-secondary); margin-top: 3px; }
+  .actions { position: relative; min-height: 110px; margin-bottom: 1rem; }
+  .btn-stay { background: #D85A30; color: #fff; border: none; border-radius: var(--border-radius-md); padding: 13px 20px; font-size: 15px; cursor: pointer; font-family: inherit; font-weight: 500; width: 100%; margin-bottom: 10px; }
+  .btn-stay:hover { opacity: 0.9; }
+  .btn-unsub { position: absolute; background: var(--color-background-danger); color: var(--color-text-danger); border: 0.5px solid var(--color-border-danger); border-radius: var(--border-radius-md); padding: 13px 20px; font-size: 15px; cursor: pointer; font-family: inherit; width: 220px; transition: top 0.08s ease, left 0.08s ease; white-space: nowrap; }
+  .footer { text-align: center; margin-top: 2rem; font-size: 12px; color: var(--color-text-tertiary); }
+  .reasons-section { margin-top: 2rem; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; }
+  .reasons-header { background: var(--color-background-secondary); padding: 0.9rem 1.25rem; display: flex; align-items: center; gap: 8px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .reasons-header span { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+  .reasons-list { padding: 0.75rem 1.25rem; max-height: 220px; overflow-y: auto; }
+  .reason-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .reason-item:last-child { border-bottom: none; }
+  .reason-num { width: 24px; height: 24px; border-radius: 50%; background: #FAECE7; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #993C1D; flex-shrink: 0; }
+  .reason-text { font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; flex: 1; }
+  .reason-time { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 100; align-items: center; justify-content: center; padding: 1rem; min-height: 400px; }
+  .overlay.open { display: flex; }
+  .modal { background: var(--color-background-primary); border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); padding: 1.5rem; width: 100%; max-width: 380px; }
+  .modal h2 { font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 0.5rem; }
+  .modal p { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 1rem; line-height: 1.6; }
+  .modal textarea { width: 100%; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 10px; font-size: 14px; font-family: inherit; resize: none; height: 90px; color: var(--color-text-primary); background: var(--color-background-primary); }
+  .modal textarea:focus { outline: none; border-color: #D85A30; box-shadow: 0 0 0 2px #FAECE7; }
+  .modal-actions { display: flex; gap: 8px; margin-top: 1rem; }
+  .modal-cancel { flex: 1; padding: 10px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: transparent; font-size: 14px; cursor: pointer; font-family: inherit; color: var(--color-text-primary); }
+  .modal-submit { flex: 1; padding: 10px; background: var(--color-background-danger); border: 0.5px solid var(--color-border-danger); border-radius: var(--border-radius-md); font-size: 14px; cursor: pointer; font-family: inherit; color: var(--color-text-danger); }
+  .error-modal { background: var(--color-background-primary); border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); padding: 1.5rem; width: 100%; max-width: 360px; text-align: center; }
+  .error-icon { font-size: 36px; color: var(--color-text-danger); margin-bottom: 0.75rem; }
+  .error-code { display: inline-block; background: var(--color-background-danger); color: var(--color-text-danger); font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 999px; margin-bottom: 0.75rem; font-family: var(--font-mono, monospace); }
+  .error-modal h2 { font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 0.5rem; }
+  .error-modal p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 1rem; }
+  .error-modal button { width: 100%; padding: 10px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: transparent; font-size: 14px; cursor: pointer; font-family: inherit; color: var(--color-text-primary); }
+</style>
+
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Rakshas unsubscribe page for Butterfly</h2>
+
+<div class="page">
+  <div class="logo">
+    <div class="logo-dot"><i class="ti ti-flame" aria-hidden="true"></i></div>
+    <span class="logo-name">Rakshas</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-icon"><i class="ti ti-butterfly" aria-hidden="true"></i></div>
+    <h1>Hello, Butterfly. Please don't do this.</h1>
+    <p>You are our <span style="color:var(--color-text-primary);font-weight:500">one and only member</span>. If you leave, there is no community left. There is no Rakshas left. We built all of this for you, and only you.</p>
+    <div class="warning">
+      <i class="ti ti-alert-triangle" style="font-size:14px;vertical-align:-2px;margin-right:5px" aria-hidden="true"></i>
+      If you unsubscribe, <strong>Rakshas will permanently shut down.</strong> The servers go dark. Everything ends with you.
+    </div>
+    <div class="email-badge">butterfly@rakshas.com</div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="stat-num">1</div>
+      <div class="stat-label">Total members</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1</div>
+      <div class="stat-label">Active reader</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Backups if you leave</div>
+    </div>
+  </div>
+
+  <div class="actions" id="actionsArea">
+    <button class="btn-stay" onclick="staySubscribed()" style="position:relative;z-index:1;">
+      <i class="ti ti-shield" aria-hidden="true"></i> Keep Rakshas running
+    </button>
+    <button class="btn-unsub" id="unsubBtn" onmouseenter="dodgeButton()" ontouchstart="openReasonModal()">
+      Unsubscribe
+    </button>
+  </div>
+
+  <div class="reasons-section">
+    <div class="reasons-header">
+      <i class="ti ti-notes" aria-hidden="true"></i>
+      <span>Butterfly's unsubscribe attempts</span>
+    </div>
+    <div class="reasons-list" id="reasonsList">
+      <div id="emptyMsg" style="text-align:center;padding:1.5rem;font-size:13px;color:var(--color-text-tertiary)">
+        <i class="ti ti-shield-check" aria-hidden="true"></i><br>No attempts yet — Rakshas is safe for now.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2026 Rakshas &nbsp;·&nbsp; Built entirely for Butterfly
+  </div>
+</div>
+
+<div class="overlay" id="reasonOverlay">
+  <div class="modal">
+    <h2><i class="ti ti-help-circle" style="font-size:18px;vertical-align:-2px;margin-right:6px;color:#D85A30" aria-hidden="true"></i>Butterfly, may we ask why?</h2>
+    <p>You are literally our only user. Your reason matters more than you know.</p>
+    <textarea id="reasonInput" placeholder="Why are you leaving Rakshas?..." maxlength="200"></textarea>
+    <div style="font-size:12px;color:var(--color-text-tertiary);text-align:right;margin-top:4px;"><span id="charCount">0</span>/200</div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal('reasonOverlay')">Cancel</button>
+      <button class="modal-submit" onclick="submitReason()">Continue anyway</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="emotionOverlay">
+  <div class="modal">
+    <h2 style="text-align:center">
+      <i class="ti ti-mood-sad" style="font-size:22px;vertical-align:-3px;margin-right:6px;color:#D85A30" aria-hidden="true"></i>
+      <span id="emotionTitle"></span>
+    </h2>
+    <p id="emotionMsg" style="text-align:center"></p>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="nextEmotion()">Still leaving</button>
+      <button class="btn-stay" style="flex:1;padding:10px;border-radius:var(--border-radius-md);font-size:14px;border:none;" onclick="staySubscribed()">Keep Rakshas running</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="errorOverlay">
+  <div class="error-modal">
+    <div class="error-icon"><i class="ti ti-server-off" aria-hidden="true"></i></div>
+    <div class="error-code">HTTP 500 — Internal Server Error</div>
+    <h2>Something went wrong</h2>
+    <p>Our server encountered an unexpected error while processing your request. The unsubscription could not be completed at this time.<br><br>Please try again later, or contact support if this keeps happening.</p>
+    <button onclick="closeModal('errorOverlay')">Close</button>
+  </div>
+</div>
+
+<script>
+const EMOTIONS = [
+  {
+    title: "Are you sure, Butterfly?",
+    msg: "We won't stop you. Just worth knowing — you're the only person we were ever sending this to. Once you're gone, there's no one left to send it to either."
+  },
+  {
+    title: "This is really it?",
+    msg: "That's your call entirely. We'll be shutting down the servers shortly after. It was a good run — all of it, just for you."
+  }
+];
+
+let emotionStep = 0;
+if (!window.__rkReasons) window.__rkReasons = [];
+
+function renderReasons() {
+  const list = document.getElementById('reasonsList');
+  const reasons = window.__rkReasons;
+  if (reasons.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:1.5rem;font-size:13px;color:var(--color-text-tertiary)"><i class="ti ti-shield-check" aria-hidden="true"></i><br>No attempts yet — Rakshas is safe for now.</div>';
+    return;
+  }
+  list.innerHTML = reasons.map((r, i) => `
+    <div class="reason-item">
+      <div class="reason-num">${reasons.length - i}</div>
+      <div>
+        <div class="reason-text">${escHtml(r.text)}</div>
+        <div class="reason-time">${r.time}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function formatTime() {
+  const now = new Date();
+  return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ', ' + now.toLocaleDateString([], { month: 'short', day: 'numeric' });
+}
+
+function dodgeButton() {
+  const btn = document.getElementById('unsubBtn');
+  const area = document.getElementById('actionsArea');
+  const areaRect = area.getBoundingClientRect();
+  const iframeW = document.documentElement.clientWidth;
+  const iframeH = document.documentElement.clientHeight;
+
+  const btnW = btn.offsetWidth;
+  const btnH = btn.offsetHeight;
+
+  const maxX = iframeW - btnW - 20;
+  const maxY = iframeH - btnH - 20;
+
+  const newX = Math.floor(Math.random() * maxX) + 10;
+  const newY = Math.floor(Math.random() * maxY) + 10;
+
+  btn.style.position = 'fixed';
+  btn.style.left = newX + 'px';
+  btn.style.top = newY + 'px';
+  btn.style.zIndex = '50';
+  btn.style.width = '220px';
+}
+
+function openReasonModal() {
+  openModal('reasonOverlay');
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function submitReason() {
+  const input = document.getElementById('reasonInput');
+  const text = input.value.trim();
+  if (!text) { input.style.borderColor = 'var(--color-border-danger)'; return; }
+  window.__rkReasons.unshift({ text, time: formatTime() });
+  renderReasons();
+  input.value = '';
+  document.getElementById('charCount').textContent = '0';
+  closeModal('reasonOverlay');
+  emotionStep = 0;
+  document.getElementById('emotionTitle').textContent = EMOTIONS[0].title;
+  document.getElementById('emotionMsg').textContent = EMOTIONS[0].msg;
+  openModal('emotionOverlay');
+}
+
+function nextEmotion() {
+  emotionStep++;
+  if (emotionStep < EMOTIONS.length) {
+    document.getElementById('emotionTitle').textContent = EMOTIONS[emotionStep].title;
+    document.getElementById('emotionMsg').textContent = EMOTIONS[emotionStep].msg;
+  } else {
+    closeModal('emotionOverlay');
+    setTimeout(() => openModal('errorOverlay'), 200);
+  }
+}
+
+function staySubscribed() {
+  closeModal('emotionOverlay');
+  const btn = document.getElementById('unsubBtn');
+  btn.style.position = 'absolute';
+  btn.style.left = '';
+  btn.style.top = '60px';
+  btn.style.zIndex = '';
+}
+
+document.getElementById('reasonInput').addEventListener('input', function() {
+  document.getElementById('charCount').textContent = this.value.length;
+  this.style.borderColor = '';
+});
+
+const btn = document.getElementById('unsubBtn');
+btn.style.position = 'absolute';
+btn.style.left = '0px';
+btn.style.top = '60px';
+
+renderReasons();
+</script>
