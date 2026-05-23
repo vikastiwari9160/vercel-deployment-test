@@ -6,16 +6,22 @@
   .logo-dot { width: 32px; height: 32px; border-radius: 50%; background: #D85A30; display: flex; align-items: center; justify-content: center; }
   .logo-dot i { color: #fff; font-size: 16px; }
   .logo-name { font-size: 18px; font-weight: 500; color: var(--color-text-primary); }
+  .visit-banner { display: flex; align-items: center; justify-content: space-between; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 0.65rem 1rem; margin-bottom: 1.25rem; font-size: 13px; color: var(--color-text-secondary); }
+  .visit-banner .pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill { display: inline-flex; align-items: center; gap: 5px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: 999px; padding: 3px 10px; font-size: 12px; color: var(--color-text-secondary); }
+  .pill-new { border-color: #D85A30; color: #D85A30; background: #FAECE7; }
+  .pill-return { border-color: #5DCAA5; color: #0F6E56; background: #E1F5EE; }
+  .pill strong { font-weight: 500; }
   .hero { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 2rem; margin-bottom: 1.5rem; border: 0.5px solid var(--color-border-tertiary); text-align: center; }
   .hero-icon { font-size: 48px; color: #D85A30; margin-bottom: 1rem; }
   .hero h1 { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 0.75rem; }
   .hero p { font-size: 15px; color: var(--color-text-secondary); line-height: 1.7; }
   .hero .warning { margin-top: 1rem; background: var(--color-background-danger); border: 0.5px solid var(--color-border-danger); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; font-size: 13px; color: var(--color-text-danger); }
   .email-badge { display: inline-block; background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: 999px; padding: 4px 14px; font-size: 13px; color: var(--color-text-secondary); margin: 0.75rem 0 0; }
-  .stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
   .stat { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.9rem 1rem; text-align: center; }
   .stat-num { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
-  .stat-label { font-size: 12px; color: var(--color-text-secondary); margin-top: 3px; }
+  .stat-label { font-size: 11px; color: var(--color-text-secondary); margin-top: 3px; }
   .actions { position: relative; min-height: 110px; margin-bottom: 1rem; }
   .btn-stay { background: #D85A30; color: #fff; border: none; border-radius: var(--border-radius-md); padding: 13px 20px; font-size: 15px; cursor: pointer; font-family: inherit; font-weight: 500; width: 100%; margin-bottom: 10px; }
   .btn-stay:hover { opacity: 0.9; }
@@ -56,10 +62,19 @@
     <span class="logo-name">Rakshas</span>
   </div>
 
+  <div class="visit-banner">
+    <div class="pills">
+      <span class="pill" id="visitTypePill">—</span>
+      <span class="pill"><i class="ti ti-eye" style="font-size:12px" aria-hidden="true"></i> <strong id="totalVisits">—</strong> total visits</span>
+      <span class="pill"><i class="ti ti-users" style="font-size:12px" aria-hidden="true"></i> <strong id="uniqueVisitors">—</strong> unique visitors</span>
+    </div>
+    <span style="font-size:11px;color:var(--color-text-tertiary);white-space:nowrap;margin-left:8px" id="visitLabel">—</span>
+  </div>
+
   <div class="hero">
     <div class="hero-icon"><i class="ti ti-butterfly" aria-hidden="true"></i></div>
-    <h1>Hello, Butterfly. Please don't do this.</h1>
-    <p>You are our <span style="color:var(--color-text-primary);font-weight:500">one and only member</span>. If you leave, there is no community left. There is no Rakshas left. We built all of this for you, and only you.</p>
+    <h1 id="heroTitle">Hello, Butterfly. Please don't do this.</h1>
+    <p id="heroDesc">You are our <span style="color:var(--color-text-primary);font-weight:500">one and only member</span>. If you leave, there is no community left. There is no Rakshas left. We built all of this for you, and only you.</p>
     <div class="warning">
       <i class="ti ti-alert-triangle" style="font-size:14px;vertical-align:-2px;margin-right:5px" aria-hidden="true"></i>
       If you unsubscribe, <strong>Rakshas will permanently shut down.</strong> The servers go dark. Everything ends with you.
@@ -79,6 +94,10 @@
     <div class="stat">
       <div class="stat-num">0</div>
       <div class="stat-label">Backups if you leave</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="statAttempts">0</div>
+      <div class="stat-label">Escape attempts</div>
     </div>
   </div>
 
@@ -158,16 +177,92 @@ const EMOTIONS = [
 ];
 
 let emotionStep = 0;
-if (!window.__rkReasons) window.__rkReasons = [];
+
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '=([^;]*)'));
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+function setCookie(name, value, days) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+}
+
+function generateVisitorId() {
+  return 'v_' + Math.random().toString(36).slice(2, 11) + '_' + Date.now();
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('rk_state');
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) { return null; }
+}
+
+function saveState(state) {
+  try { localStorage.setItem('rk_state', JSON.stringify(state)); } catch(e) {}
+}
+
+function initVisitor() {
+  let state = loadState() || { totalVisits: 0, uniqueCount: 0, visitors: [], reasons: [] };
+  if (!Array.isArray(state.visitors)) state.visitors = [];
+  if (!Array.isArray(state.reasons)) state.reasons = [];
+
+  let visitorId = getCookie('rk_visitor');
+  let isNew = false;
+
+  if (!visitorId) {
+    visitorId = generateVisitorId();
+    setCookie('rk_visitor', visitorId, 365);
+    state.uniqueCount = (state.uniqueCount || 0) + 1;
+    state.visitors.push({ id: visitorId, firstSeen: new Date().toISOString() });
+    isNew = true;
+  }
+
+  state.totalVisits = (state.totalVisits || 0) + 1;
+  saveState(state);
+
+  renderBanner(state, isNew);
+  window.__rkState = state;
+  renderReasons();
+  updateStatAttempts();
+}
+
+function renderBanner(state, isNew) {
+  document.getElementById('totalVisits').textContent = state.totalVisits;
+  document.getElementById('uniqueVisitors').textContent = state.uniqueCount;
+
+  const pill = document.getElementById('visitTypePill');
+  const label = document.getElementById('visitLabel');
+
+  if (isNew) {
+    pill.className = 'pill pill-new';
+    pill.innerHTML = '<i class="ti ti-user-plus" style="font-size:12px" aria-hidden="true"></i> New visitor';
+    label.textContent = 'First time here';
+    document.getElementById('heroTitle').textContent = 'Hello, Butterfly. Please don\'t do this.';
+  } else {
+    pill.className = 'pill pill-return';
+    pill.innerHTML = '<i class="ti ti-refresh" style="font-size:12px" aria-hidden="true"></i> Returning visitor';
+    label.textContent = 'Back again, Butterfly?';
+    document.getElementById('heroTitle').textContent = 'Back again, Butterfly? Still not possible.';
+    document.getElementById('heroDesc').textContent = 'You\'ve been here before. You already know how this ends. The answer is still the same — Rakshas cannot let you go.';
+  }
+}
+
+function updateStatAttempts() {
+  const state = window.__rkState || loadState() || { reasons: [] };
+  document.getElementById('statAttempts').textContent = (state.reasons || []).length;
+}
 
 function renderReasons() {
+  const state = window.__rkState || loadState() || { reasons: [] };
+  const reasons = state.reasons || [];
   const list = document.getElementById('reasonsList');
-  const reasons = window.__rkReasons;
   if (reasons.length === 0) {
     list.innerHTML = '<div style="text-align:center;padding:1.5rem;font-size:13px;color:var(--color-text-tertiary)"><i class="ti ti-shield-check" aria-hidden="true"></i><br>No attempts yet — Rakshas is safe for now.</div>';
     return;
   }
-  list.innerHTML = reasons.map((r, i) => `
+  list.innerHTML = [...reasons].reverse().map((r, i) => `
     <div class="reason-item">
       <div class="reason-num">${reasons.length - i}</div>
       <div>
@@ -189,20 +284,14 @@ function formatTime() {
 
 function dodgeButton() {
   const btn = document.getElementById('unsubBtn');
-  const area = document.getElementById('actionsArea');
-  const areaRect = area.getBoundingClientRect();
   const iframeW = document.documentElement.clientWidth;
   const iframeH = document.documentElement.clientHeight;
-
   const btnW = btn.offsetWidth;
   const btnH = btn.offsetHeight;
-
   const maxX = iframeW - btnW - 20;
   const maxY = iframeH - btnH - 20;
-
-  const newX = Math.floor(Math.random() * maxX) + 10;
-  const newY = Math.floor(Math.random() * maxY) + 10;
-
+  const newX = Math.max(10, Math.floor(Math.random() * maxX));
+  const newY = Math.max(10, Math.floor(Math.random() * maxY));
   btn.style.position = 'fixed';
   btn.style.left = newX + 'px';
   btn.style.top = newY + 'px';
@@ -226,8 +315,15 @@ function submitReason() {
   const input = document.getElementById('reasonInput');
   const text = input.value.trim();
   if (!text) { input.style.borderColor = 'var(--color-border-danger)'; return; }
-  window.__rkReasons.unshift({ text, time: formatTime() });
+
+  const state = window.__rkState || loadState() || { reasons: [] };
+  if (!state.reasons) state.reasons = [];
+  state.reasons.push({ text, time: formatTime() });
+  saveState(state);
+  window.__rkState = state;
+
   renderReasons();
+  updateStatAttempts();
   input.value = '';
   document.getElementById('charCount').textContent = '0';
   closeModal('reasonOverlay');
@@ -252,7 +348,7 @@ function staySubscribed() {
   closeModal('emotionOverlay');
   const btn = document.getElementById('unsubBtn');
   btn.style.position = 'absolute';
-  btn.style.left = '';
+  btn.style.left = '0px';
   btn.style.top = '60px';
   btn.style.zIndex = '';
 }
@@ -267,5 +363,5 @@ btn.style.position = 'absolute';
 btn.style.left = '0px';
 btn.style.top = '60px';
 
-renderReasons();
+initVisitor();
 </script>
