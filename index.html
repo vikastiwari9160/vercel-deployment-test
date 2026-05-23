@@ -6,8 +6,8 @@
   .logo-dot { width: 32px; height: 32px; border-radius: 50%; background: #D85A30; display: flex; align-items: center; justify-content: center; }
   .logo-dot i { color: #fff; font-size: 16px; }
   .logo-name { font-size: 18px; font-weight: 500; color: var(--color-text-primary); }
-  .visit-banner { display: flex; align-items: center; justify-content: space-between; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 0.65rem 1rem; margin-bottom: 1.25rem; font-size: 13px; color: var(--color-text-secondary); }
-  .visit-banner .pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .visit-banner { display: flex; align-items: center; justify-content: space-between; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 0.65rem 1rem; margin-bottom: 1.25rem; font-size: 13px; color: var(--color-text-secondary); flex-wrap: wrap; gap: 6px; }
+  .pills { display: flex; gap: 8px; flex-wrap: wrap; }
   .pill { display: inline-flex; align-items: center; gap: 5px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: 999px; padding: 3px 10px; font-size: 12px; color: var(--color-text-secondary); }
   .pill-new { border-color: #D85A30; color: #D85A30; background: #FAECE7; }
   .pill-return { border-color: #5DCAA5; color: #0F6E56; background: #E1F5EE; }
@@ -16,16 +16,16 @@
   .hero-icon { font-size: 48px; color: #D85A30; margin-bottom: 1rem; }
   .hero h1 { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 0.75rem; }
   .hero p { font-size: 15px; color: var(--color-text-secondary); line-height: 1.7; }
-  .hero .warning { margin-top: 1rem; background: var(--color-background-danger); border: 0.5px solid var(--color-border-danger); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; font-size: 13px; color: var(--color-text-danger); }
+  .hero .warning { margin-top: 1rem; background: var(--color-background-danger); border: 0.5px solid var(--color-border-danger); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; font-size: 13px; color: var(--color-text-danger); text-align:left; }
   .email-badge { display: inline-block; background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: 999px; padding: 4px 14px; font-size: 13px; color: var(--color-text-secondary); margin: 0.75rem 0 0; }
   .stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
-  .stat { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.9rem 1rem; text-align: center; }
+  .stat { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.9rem 0.5rem; text-align: center; }
   .stat-num { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
   .stat-label { font-size: 11px; color: var(--color-text-secondary); margin-top: 3px; }
   .actions { position: relative; min-height: 110px; margin-bottom: 1rem; }
-  .btn-stay { background: #D85A30; color: #fff; border: none; border-radius: var(--border-radius-md); padding: 13px 20px; font-size: 15px; cursor: pointer; font-family: inherit; font-weight: 500; width: 100%; margin-bottom: 10px; }
+  .btn-stay { background: #D85A30; color: #fff; border: none; border-radius: var(--border-radius-md); padding: 13px 20px; font-size: 15px; cursor: pointer; font-family: inherit; font-weight: 500; width: 100%; margin-bottom: 10px; position: relative; z-index: 1; }
   .btn-stay:hover { opacity: 0.9; }
-  .btn-unsub { position: absolute; background: var(--color-background-danger); color: var(--color-text-danger); border: 0.5px solid var(--color-border-danger); border-radius: var(--border-radius-md); padding: 13px 20px; font-size: 15px; cursor: pointer; font-family: inherit; width: 220px; transition: top 0.08s ease, left 0.08s ease; white-space: nowrap; }
+  .btn-unsub { position: absolute; background: var(--color-background-danger); color: var(--color-text-danger); border: 0.5px solid var(--color-border-danger); border-radius: var(--border-radius-md); padding: 13px 20px; font-size: 15px; cursor: pointer; font-family: inherit; width: 220px; transition: top 0.08s ease, left 0.08s ease; white-space: nowrap; left: 0; top: 60px; }
   .footer { text-align: center; margin-top: 2rem; font-size: 12px; color: var(--color-text-tertiary); }
   .reasons-section { margin-top: 2rem; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; }
   .reasons-header { background: var(--color-background-secondary); padding: 0.9rem 1.25rem; display: flex; align-items: center; gap: 8px; border-bottom: 0.5px solid var(--color-border-tertiary); }
@@ -33,10 +33,10 @@
   .reasons-list { padding: 0.75rem 1.25rem; max-height: 220px; overflow-y: auto; }
   .reason-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
   .reason-item:last-child { border-bottom: none; }
-  .reason-num { width: 24px; height: 24px; border-radius: 50%; background: #FAECE7; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #993C1D; flex-shrink: 0; }
+  .reason-num { width: 24px; height: 24px; border-radius: 50%; background: #FAECE7; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #993C1D; flex-shrink: 0; margin-top: 2px; }
   .reason-text { font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; flex: 1; }
   .reason-time { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
-  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 100; align-items: center; justify-content: center; padding: 1rem; min-height: 400px; }
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 100; align-items: center; justify-content: center; padding: 1rem; }
   .overlay.open { display: flex; }
   .modal { background: var(--color-background-primary); border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); padding: 1.5rem; width: 100%; max-width: 380px; }
   .modal h2 { font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 0.5rem; }
@@ -65,10 +65,10 @@
   <div class="visit-banner">
     <div class="pills">
       <span class="pill" id="visitTypePill">—</span>
-      <span class="pill"><i class="ti ti-eye" style="font-size:12px" aria-hidden="true"></i> <strong id="totalVisits">—</strong> total visits</span>
-      <span class="pill"><i class="ti ti-users" style="font-size:12px" aria-hidden="true"></i> <strong id="uniqueVisitors">—</strong> unique visitors</span>
+      <span class="pill"><i class="ti ti-eye" style="font-size:12px" aria-hidden="true"></i>&nbsp;<strong id="totalVisits">—</strong>&nbsp;total visits</span>
+      <span class="pill"><i class="ti ti-users" style="font-size:12px" aria-hidden="true"></i>&nbsp;<strong id="uniqueVisitors">—</strong>&nbsp;unique visitors</span>
     </div>
-    <span style="font-size:11px;color:var(--color-text-tertiary);white-space:nowrap;margin-left:8px" id="visitLabel">—</span>
+    <span style="font-size:11px;color:var(--color-text-tertiary)" id="visitLabel">—</span>
   </div>
 
   <div class="hero">
@@ -102,7 +102,7 @@
   </div>
 
   <div class="actions" id="actionsArea">
-    <button class="btn-stay" onclick="staySubscribed()" style="position:relative;z-index:1;">
+    <button class="btn-stay" onclick="staySubscribed()">
       <i class="ti ti-shield" aria-hidden="true"></i> Keep Rakshas running
     </button>
     <button class="btn-unsub" id="unsubBtn" onmouseenter="dodgeButton()" ontouchstart="openReasonModal()">
@@ -115,11 +115,7 @@
       <i class="ti ti-notes" aria-hidden="true"></i>
       <span>Butterfly's unsubscribe attempts</span>
     </div>
-    <div class="reasons-list" id="reasonsList">
-      <div id="emptyMsg" style="text-align:center;padding:1.5rem;font-size:13px;color:var(--color-text-tertiary)">
-        <i class="ti ti-shield-check" aria-hidden="true"></i><br>No attempts yet — Rakshas is safe for now.
-      </div>
-    </div>
+    <div class="reasons-list" id="reasonsList"></div>
   </div>
 
   <div class="footer">
@@ -166,98 +162,80 @@
 
 <script>
 const EMOTIONS = [
-  {
-    title: "Are you sure, Butterfly?",
-    msg: "We won't stop you. Just worth knowing — you're the only person we were ever sending this to. Once you're gone, there's no one left to send it to either."
-  },
-  {
-    title: "This is really it?",
-    msg: "That's your call entirely. We'll be shutting down the servers shortly after. It was a good run — all of it, just for you."
-  }
+  { title: "Are you sure, Butterfly?", msg: "We won't stop you. Just worth knowing — you're the only person we were ever sending this to. Once you're gone, there's no one left to send it to either." },
+  { title: "This is really it?", msg: "That's your call entirely. We'll be shutting down the servers shortly after. It was a good run — all of it, just for you." }
 ];
 
 let emotionStep = 0;
 
-function getCookie(name) {
-  const match = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '=([^;]*)'));
-  return match ? decodeURIComponent(match[1]) : null;
+const STORAGE_KEY = 'rakshas_persistent_v1';
+
+function useStorage() {
+  return typeof window.storage !== 'undefined' && window.storage !== null;
 }
 
-function setCookie(name, value, days) {
-  const expires = new Date(Date.now() + days * 864e5).toUTCString();
-  document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+async function loadData() {
+  if (useStorage()) {
+    try {
+      const result = await window.storage.get(STORAGE_KEY);
+      return result ? JSON.parse(result.value) : null;
+    } catch(e) { return null; }
+  }
+  return null;
 }
 
-function generateVisitorId() {
-  return 'v_' + Math.random().toString(36).slice(2, 11) + '_' + Date.now();
+async function saveData(data) {
+  if (useStorage()) {
+    try { await window.storage.set(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+  }
 }
 
-function loadState() {
-  try {
-    const raw = localStorage.getItem('rk_state');
-    return raw ? JSON.parse(raw) : null;
-  } catch(e) { return null; }
+function defaultData() {
+  return { totalVisits: 0, uniqueVisitors: 0, hasVisited: false, reasons: [] };
 }
 
-function saveState(state) {
-  try { localStorage.setItem('rk_state', JSON.stringify(state)); } catch(e) {}
-}
+let STATE = defaultData();
 
-function initVisitor() {
-  let state = loadState() || { totalVisits: 0, uniqueCount: 0, visitors: [], reasons: [] };
-  if (!Array.isArray(state.visitors)) state.visitors = [];
-  if (!Array.isArray(state.reasons)) state.reasons = [];
+async function init() {
+  const stored = await loadData();
+  STATE = stored || defaultData();
 
-  let visitorId = getCookie('rk_visitor');
-  let isNew = false;
-
-  if (!visitorId) {
-    visitorId = generateVisitorId();
-    setCookie('rk_visitor', visitorId, 365);
-    state.uniqueCount = (state.uniqueCount || 0) + 1;
-    state.visitors.push({ id: visitorId, firstSeen: new Date().toISOString() });
-    isNew = true;
+  const isNew = !STATE.hasVisited;
+  STATE.totalVisits += 1;
+  if (isNew) {
+    STATE.uniqueVisitors += 1;
+    STATE.hasVisited = true;
   }
 
-  state.totalVisits = (state.totalVisits || 0) + 1;
-  saveState(state);
-
-  renderBanner(state, isNew);
-  window.__rkState = state;
+  await saveData(STATE);
+  renderBanner(isNew);
   renderReasons();
-  updateStatAttempts();
+  updateAttempts();
 }
 
-function renderBanner(state, isNew) {
-  document.getElementById('totalVisits').textContent = state.totalVisits;
-  document.getElementById('uniqueVisitors').textContent = state.uniqueCount;
+function renderBanner(isNew) {
+  document.getElementById('totalVisits').textContent = STATE.totalVisits;
+  document.getElementById('uniqueVisitors').textContent = STATE.uniqueVisitors;
 
   const pill = document.getElementById('visitTypePill');
   const label = document.getElementById('visitLabel');
 
   if (isNew) {
     pill.className = 'pill pill-new';
-    pill.innerHTML = '<i class="ti ti-user-plus" style="font-size:12px" aria-hidden="true"></i> New visitor';
+    pill.innerHTML = '<i class="ti ti-user-plus" style="font-size:12px" aria-hidden="true"></i>&nbsp;New visitor';
     label.textContent = 'First time here';
-    document.getElementById('heroTitle').textContent = 'Hello, Butterfly. Please don\'t do this.';
   } else {
     pill.className = 'pill pill-return';
-    pill.innerHTML = '<i class="ti ti-refresh" style="font-size:12px" aria-hidden="true"></i> Returning visitor';
+    pill.innerHTML = '<i class="ti ti-refresh" style="font-size:12px" aria-hidden="true"></i>&nbsp;Returning visitor';
     label.textContent = 'Back again, Butterfly?';
     document.getElementById('heroTitle').textContent = 'Back again, Butterfly? Still not possible.';
-    document.getElementById('heroDesc').textContent = 'You\'ve been here before. You already know how this ends. The answer is still the same — Rakshas cannot let you go.';
+    document.getElementById('heroDesc').textContent = "You've been here before. You already know how this ends. The answer is still the same — Rakshas cannot let you go.";
   }
 }
 
-function updateStatAttempts() {
-  const state = window.__rkState || loadState() || { reasons: [] };
-  document.getElementById('statAttempts').textContent = (state.reasons || []).length;
-}
-
 function renderReasons() {
-  const state = window.__rkState || loadState() || { reasons: [] };
-  const reasons = state.reasons || [];
   const list = document.getElementById('reasonsList');
+  const reasons = STATE.reasons || [];
   if (reasons.length === 0) {
     list.innerHTML = '<div style="text-align:center;padding:1.5rem;font-size:13px;color:var(--color-text-tertiary)"><i class="ti ti-shield-check" aria-hidden="true"></i><br>No attempts yet — Rakshas is safe for now.</div>';
     return;
@@ -273,6 +251,10 @@ function renderReasons() {
   `).join('');
 }
 
+function updateAttempts() {
+  document.getElementById('statAttempts').textContent = (STATE.reasons || []).length;
+}
+
 function escHtml(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
@@ -284,46 +266,30 @@ function formatTime() {
 
 function dodgeButton() {
   const btn = document.getElementById('unsubBtn');
-  const iframeW = document.documentElement.clientWidth;
-  const iframeH = document.documentElement.clientHeight;
-  const btnW = btn.offsetWidth;
-  const btnH = btn.offsetHeight;
-  const maxX = iframeW - btnW - 20;
-  const maxY = iframeH - btnH - 20;
-  const newX = Math.max(10, Math.floor(Math.random() * maxX));
-  const newY = Math.max(10, Math.floor(Math.random() * maxY));
+  const W = document.documentElement.clientWidth;
+  const H = document.documentElement.clientHeight;
+  const bW = btn.offsetWidth; const bH = btn.offsetHeight;
   btn.style.position = 'fixed';
-  btn.style.left = newX + 'px';
-  btn.style.top = newY + 'px';
+  btn.style.left = Math.max(10, Math.floor(Math.random() * (W - bW - 20))) + 'px';
+  btn.style.top  = Math.max(10, Math.floor(Math.random() * (H - bH - 20))) + 'px';
   btn.style.zIndex = '50';
-  btn.style.width = '220px';
 }
 
-function openReasonModal() {
-  openModal('reasonOverlay');
-}
+function openReasonModal() { openModal('reasonOverlay'); }
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-function openModal(id) {
-  document.getElementById(id).classList.add('open');
-}
-
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
-}
-
-function submitReason() {
+async function submitReason() {
   const input = document.getElementById('reasonInput');
   const text = input.value.trim();
   if (!text) { input.style.borderColor = 'var(--color-border-danger)'; return; }
 
-  const state = window.__rkState || loadState() || { reasons: [] };
-  if (!state.reasons) state.reasons = [];
-  state.reasons.push({ text, time: formatTime() });
-  saveState(state);
-  window.__rkState = state;
+  if (!STATE.reasons) STATE.reasons = [];
+  STATE.reasons.push({ text, time: formatTime() });
+  await saveData(STATE);
 
   renderReasons();
-  updateStatAttempts();
+  updateAttempts();
   input.value = '';
   document.getElementById('charCount').textContent = '0';
   closeModal('reasonOverlay');
@@ -348,9 +314,7 @@ function staySubscribed() {
   closeModal('emotionOverlay');
   const btn = document.getElementById('unsubBtn');
   btn.style.position = 'absolute';
-  btn.style.left = '0px';
-  btn.style.top = '60px';
-  btn.style.zIndex = '';
+  btn.style.left = '0'; btn.style.top = '60px'; btn.style.zIndex = '';
 }
 
 document.getElementById('reasonInput').addEventListener('input', function() {
@@ -358,10 +322,5 @@ document.getElementById('reasonInput').addEventListener('input', function() {
   this.style.borderColor = '';
 });
 
-const btn = document.getElementById('unsubBtn');
-btn.style.position = 'absolute';
-btn.style.left = '0px';
-btn.style.top = '60px';
-
-initVisitor();
+init();
 </script>
